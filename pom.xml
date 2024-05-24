@@ -69,6 +69,57 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 		
+		<!-- Excel -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>5.2.3</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>5.2.3</version>
+		</dependency>
+		<!-- 在公司不能用
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml-schemas</artifactId>
+		    <version>4.1.2</version>
+		</dependency>
+		-->
+		<dependency>
+		    <groupId>org.apache.xmlbeans</groupId>
+		    <artifactId>xmlbeans</artifactId>
+		    <version>5.1.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-collections4</artifactId>
+		    <version>4.4</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+		<dependency>
+		    <groupId>commons-beanutils</groupId>
+		    <artifactId>commons-beanutils</artifactId>
+		    <version>1.9.4</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
+		<dependency>
+		    <groupId>commons-net</groupId>
+		    <artifactId>commons-net</artifactId>
+		    <version>3.9.0</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
+		<dependency>
+		    <groupId>com.jcraft</groupId>
+		    <artifactId>jsch</artifactId>
+		    <version>0.1.55</version>
+		</dependency>
+
+
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter</artifactId>
