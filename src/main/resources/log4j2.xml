@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+	<!-- 共用參數定義 -->
+	<Properties>
+		<Property name="service-name" 			  value="template-project-1"/>
+		<Property name="base-log-path" 			  value="C:/Users/harveyliu/eclipse-workspace/${service-name}/logs"/>
+		<!-- <Property name="base-log-path" 			  value="${sys:user.home}/eclipse-workspace/${service-name}/logs"/> -->
+		<Property name="base-log-name" 			  value="${service-name}.log"/>
+		<Property name="api-log-name" 			  value="api.log"/>
+		<Property name="persistence-log-name" 	  value="persistence.log"/>
+		<Property name="springframework-log-name" value="springframework.log"/>
+		<Property name="backup-path" 			  value="${base-log-path}/$${date:yyyy-MM-dd}"/>
+		<Property name="pattern-layout" 		  value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-20thread] %-5level %logger{36} - %msg%n"/>
+		<!-- 
+		<Property name="pattern-layout" 		  value="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c:%L - %msg%n"/>
+		<Property name="pattern-layout">{%notEmpty{"reqSno": "%X{reqSno}", "deviceId": "%X{deviceId}", "taskId": "%X{taskId}", "companyUid": "%X{companyUid}", "userUuid": "%X{userUuid}", "ipAddress": "%X{ipAddress}", }"level": "%level", "thread": "%t", "taipei_time": "%d{DEFAULT}", "location": "%location", "serviceLog": "%replace{%replace{%replace{%enc{%msg}{CRLF}}{\"}{\'}}{\s{4}}{\\\t}}{\n}{\\\n}" %notEmpty{, "exception": "%replace{%replace{%replace{%ex}{\"}{\'}}{\s{4}}{\\\t}}{\n}{\\\n}"}}%n</Property>
+		<Property name="pattern-layout2">{%notEmpty{"reqSno": "%X{reqSno}", "deviceId": "%X{deviceId}", "taskId": "%X{taskId}", "companyUid": "%X{companyUid}", "userUuid": "%X{userUuid}", "ipAddress": "%X{ipAddress}", }  "API": "%replace{%replace{%enc{%msg}{JSON}}{\s{4}}{\\\t}}{\n}{\\\n}" }%n</Property>
+		-->
+	</Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern-layout}"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="logs/app.log"
+                     filePattern="logs/$${date:yyyy-MM-dd}/app-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${pattern-layout}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.temp" level="debug" additivity="false">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="RollingFile" />
+        </Root>
+    </Loggers>
+</Configuration>

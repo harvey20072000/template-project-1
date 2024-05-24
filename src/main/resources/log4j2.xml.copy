@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" strict="true" monitorInterval="10"
+	xmlns="http://logging.apache.org/log4j/2.0/config"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://logging.apache.org/log4j/2.0/config 
+           				https://raw.githubusercontent.com/apache/logging-log4j2/master/log4j-core/src/main/resources/Log4j-config.xsd">
+
+	<!-- 共用參數定義 -->
+	<Properties>
+		<Property name="service-name" 			  value="template-project-1"/>
+		<Property name="base-log-path" 			  value="C:/Users/harveyliu/eclipse-workspace/${service-name}/logs"/>
+		<!-- <Property name="base-log-path" 			  value="${sys:user.home}/eclipse-workspace/${service-name}/logs"/> -->
+		<Property name="base-log-name" 			  value="${service-name}.log"/>
+		<Property name="api-log-name" 			  value="api.log"/>
+		<Property name="persistence-log-name" 	  value="persistence.log"/>
+		<Property name="springframework-log-name" value="springframework.log"/>
+		<Property name="backup-path" 			  value="${base-log-path}/$${date:yyyy-MM-dd}"/>
+		<Property name="pattern-layout" 		  value="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c:%L - %msg%n"/>
+		<!-- <Property name="pattern-layout2" 		  value="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c:%L - %msg%n"/> -->
+		<!--
+		<Property name="pattern-layout">{%notEmpty{"reqSno": "%X{reqSno}", "deviceId": "%X{deviceId}", "taskId": "%X{taskId}", "companyUid": "%X{companyUid}", "userUuid": "%X{userUuid}", "ipAddress": "%X{ipAddress}", }"level": "%level", "thread": "%t", "taipei_time": "%d{DEFAULT}", "location": "%location", "serviceLog": "%replace{%replace{%replace{%enc{%msg}{CRLF}}{\"}{\'}}{\s{4}}{\\\t}}{\n}{\\\n}" %notEmpty{, "exception": "%replace{%replace{%replace{%ex}{\"}{\'}}{\s{4}}{\\\t}}{\n}{\\\n}"}}%n</Property>
+		<Property name="pattern-layout2">{%notEmpty{"reqSno": "%X{reqSno}", "deviceId": "%X{deviceId}", "taskId": "%X{taskId}", "companyUid": "%X{companyUid}", "userUuid": "%X{userUuid}", "ipAddress": "%X{ipAddress}", }  "API": "%replace{%replace{%enc{%msg}{JSON}}{\s{4}}{\\\t}}{\n}{\\\n}" }%n</Property>
+		-->
+	</Properties>
+
+	<Appenders>
+		<!-- console log -->
+		<Console name="console-log">
+			<PatternLayout pattern="${pattern-layout}"/>
+		</Console>
+		
+		<!-- service log -->
+		<RollingFile name="service-log" 
+					 fileName="${base-log-path}/${base-log-name}" 
+					 filePattern="${backup-path}/${base-log-name}-%d{yyyy-MM-dd-HH}.gz">
+					 
+			<PatternLayout pattern="${pattern-layout}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true"/>
+			</Policies>
+			<DefaultRolloverStrategy max="30"/>	
+		</RollingFile>
+		
+		<!-- persistence log -->
+		<RollingFile name="persistence-log" 
+					 fileName="${base-log-path}/${persistence-log-name}" 
+					 filePattern="${backup-path}/${persistence-log-name}-%d{yyyy-MM-dd-HH}.gz">
+					 
+			<PatternLayout pattern="${pattern-layout}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true"/>
+			</Policies>
+			<DefaultRolloverStrategy max="30"/>	
+		</RollingFile>
+		
+		<!-- springframework log -->
+		<RollingFile name="springframework-log" 
+					 fileName="${base-log-path}/${springframework-log-name}" 
+					 filePattern="${backup-path}/${springframework-log-name}-%d{yyyy-MM-dd-HH}.gz">
+					 
+			<PatternLayout pattern="${pattern-layout}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true"/>
+			</Policies>
+			<DefaultRolloverStrategy max="30"/>	
+		</RollingFile>
+		
+		<!-- api log -->
+		<RollingFile name="api-log" 
+					 fileName="${base-log-path}/${api-log-name}" 
+					 filePattern="${backup-path}/${api-log-name}-%d{yyyy-MM-dd-HH}.gz">
+					 
+			<PatternLayout pattern="${pattern-layout2}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true"/>
+			</Policies>
+			<DefaultRolloverStrategy max="30"/>	
+		</RollingFile>
+		
+		<!--performance-log-->
+		<RollingFile name="performance-log" 
+					 fileName="${base-log-path}/${api-log-name}" 
+					 filePattern="${backup-path}/${api-log-name}-%d{yyyy-MM-dd-HH}.gz">
+					 
+			<PatternLayout pattern="${pattern-layout2}"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy modulate="true"/>
+			</Policies>
+			<DefaultRolloverStrategy max="30"/>	
+		</RollingFile>
+		
+	</Appenders>
+
+	<Loggers>
+		<Root level="debug">
+			<AppenderRef ref="service-log"/>
+			<AppenderRef ref="console-log"/>
+		</Root>
+	
+		<!-- org.hibernate -->
+		<Logger name="org.hibernate" level="info">
+			<AppenderRef ref="persistence-log"/>
+		</Logger>
+		
+		<!-- org.springframework -->
+		<Logger name="org.springframework" level="debug">
+			<AppenderRef ref="springframework-log"/>
+		</Logger>
+		
+		<!-- API -->
+		<Logger name="APILOG" level="debug">
+			<AppenderRef ref="api-log"/>
+		</Logger>
+				
+		<Logger name="org.apache.http" level="debug">
+			<AppenderRef ref="service-log"/>
+		</Logger>
+		
+		<!--performance-log
+		<Logger name="APIPERFORMANCE" level="debug">
+			<AppenderRef ref="performance-log"/>
+		</Logger>
+		 -->
+	</Loggers>
+	
+</Configuration>

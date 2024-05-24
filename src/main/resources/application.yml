@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: template-project-1
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:~/eclipse-workspace/template-project-1/testDb # h2 database 連接位址
+    driver-class-name: org.h2.Driver # 配置driver
+    username: sa # database 用戶名
+    password:  # database 密碼
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+      
+server:
+  port: 8080 # 伺服器的port號
