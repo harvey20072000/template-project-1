@@ -21,5 +21,11 @@ public class ReqBody implements Serializable {
 	
 	private ReqPage reqPage;
 	private String queryDatetime;
+	
+	/** 檔案名稱 */
+	private String fileName;
+	
+	/** 檔案內容 */
+	private byte[] fileContent;
 
 }

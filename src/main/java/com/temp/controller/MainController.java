@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.temp.SpringAwareHelper;
-import com.temp.jpa.UserRepository;
+import com.temp.jpa.UserJpaRepository;
 import com.temp.jpa.entity.UserEntity;
-import com.temp.service.AnotherServciceImpl;
+import com.temp.service.AnotherServcice;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -31,7 +31,7 @@ public class MainController {
 	}
 	
 	@Autowired
-    UserRepository userRepository;
+    UserJpaRepository userRepository;
     
 	@ResponseBody
 	@PostMapping("/addUser")
@@ -85,6 +85,6 @@ public class MainController {
 	@ResponseBody
 	@GetMapping("/getBean")
 	public String getBean() {
-		return SpringAwareHelper.getBean(AnotherServciceImpl.class).aMehtod();
+		return SpringAwareHelper.getBean(AnotherServcice.class).aMehtod();
 	}
 }
