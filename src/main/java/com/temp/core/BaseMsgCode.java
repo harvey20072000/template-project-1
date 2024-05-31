@@ -28,6 +28,7 @@ public enum BaseMsgCode implements IMsgCode {
 	FLOW_ER930("FLOW_ER990", "PKI驗證失敗"),
 	
 	LOGIN__ERROR__USERNAME_PASSWORD__NOT_FOUND("LEUPNF", "帳號或密碼錯誤"),
+	LOGIN__ERROR__USERNAME__NOT_FOUND("LEUNF", "找不到使用者"),
 	
 	/* ========== Database ========== */
 	

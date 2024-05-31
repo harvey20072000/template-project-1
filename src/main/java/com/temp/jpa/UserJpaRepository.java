@@ -24,5 +24,7 @@ public interface UserJpaRepository extends CrudRepository<UserEntity, Long> {
 //    													@Param(value = "password") String password);
 	
     public List<UserEntity> findByUserNameAndPassword(String userName, String password);
+    
+    public List<UserEntity> findByUserName(String userName);
 	
 }

@@ -12,5 +12,6 @@ public class LoginResBody extends ResBody {
 	
 	private String msg;
 	private String token;
+	private String userName;
 
 }
